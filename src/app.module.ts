@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { HealthModule } from './health/health.module'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import * as process from 'process'
-import mysqlConfig from './config/mysql.config'
+import { mysqlConfig, mysqlConfigKey } from './config/mysql.config'
+import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
   imports: [
@@ -12,6 +13,13 @@ import mysqlConfig from './config/mysql.config'
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
       load: [mysqlConfig],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return configService.get(mysqlConfigKey)
+      },
     }),
   ],
   controllers: [AppController],
