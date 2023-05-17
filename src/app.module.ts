@@ -12,13 +12,13 @@ import { TypeOrmModule } from '@nestjs/typeorm'
       envFilePath: `.env.${process.env.NODE_ENV}`,
       load: [mysqlConfig],
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        return configService.get(mysqlConfigKey)
-      },
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: async (configService: ConfigService) => {
+    //     return configService.get(mysqlConfigKey)
+    //   },
+    // }),
   ],
 })
 export class AppModule {}
