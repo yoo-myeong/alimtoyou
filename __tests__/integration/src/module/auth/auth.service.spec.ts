@@ -7,6 +7,7 @@ import { DataSource, Repository } from 'typeorm'
 import { UserEntity } from '../../../../../src/entity/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { EntityModule } from '../../../../../src/entity/entity.module'
+import { ConflictException } from '@nestjs/common'
 
 describe('AuthService', () => {
   let userRepository: Repository<UserEntity>
@@ -45,5 +46,20 @@ describe('AuthService', () => {
     })
 
     expect(users.length).toBe(1)
+  })
+
+  it('동일 이메일은 저장할 수 없습니다', async () => {
+    const authService = new AuthService(userRepository)
+    const email = 'a@email.com'
+    const authDomain = await AuthDomain.create({
+      email,
+      authCodeCreator: new AuthCodeCreator(),
+    })
+
+    await authService.save(authDomain)
+
+    await expect(authService.save(authDomain)).rejects.toThrow(
+      ConflictException,
+    )
   })
 })

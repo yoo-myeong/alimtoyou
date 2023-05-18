@@ -30,4 +30,8 @@ export class AuthDomain {
 
     return user
   }
+
+  getEmail() {
+    return this._email
+  }
 }
