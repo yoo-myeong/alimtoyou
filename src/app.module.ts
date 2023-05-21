@@ -5,6 +5,9 @@ import * as process from 'process'
 import { mysqlConfig, mysqlConfigKey } from './config/mysql.config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AuthModule } from './module/auth/auth.module'
+import { RedisModule } from '@liaoliaots/nestjs-redis'
+import { askForProjectName } from '@nestjs/cli/lib/utils/project-utils'
+import { redisConfigKey } from './config/redis.config'
 
 @Module({
   imports: [
@@ -18,6 +21,13 @@ import { AuthModule } from './module/auth/auth.module'
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
         return configService.get(mysqlConfigKey)
+      },
+    }),
+    RedisModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return configService.get(redisConfigKey)
       },
     }),
     AuthModule,
