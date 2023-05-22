@@ -1,7 +1,6 @@
 import { Test } from '@nestjs/testing'
 import { getMySQLTypeOrmTestModule } from '../../getMySQLTypeOrmTestModule'
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common'
-import * as module from 'module'
+import { HttpStatus, INestApplication } from '@nestjs/common'
 import { SingUpRequestBody } from '../../../src/module/auth/dto/SingUpRequestBody'
 import * as request from 'supertest'
 import { Repository } from 'typeorm'

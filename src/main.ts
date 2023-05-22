@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core'
 import { AppModule } from './app.module'
-import { HttpStatus, ValidationPipe } from '@nestjs/common'
 import { setApp } from './config/setApp'
 
 async function bootstrap() {
