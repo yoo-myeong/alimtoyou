@@ -4,7 +4,7 @@ export const getRedisTestModule = () => {
   return RedisModule.forRoot({
     config: {
       host: 'localhost',
-      port: 6379,
+      port: 6380,
     },
   })
 }

@@ -7,9 +7,9 @@ export const getMySQLTypeOrmTestModule = () => {
   return TypeOrmModule.forRoot({
     type: 'mysql',
     host: 'localhost',
-    port: 3306,
+    port: 3309,
     username: 'root',
-    password: '12345678',
+    password: '12341234',
     database: 'alimtoyou',
     entities: [entityPath],
     autoLoadEntities: true,
