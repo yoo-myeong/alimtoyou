@@ -1,5 +1,8 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "declaration": false,
+    "outDir": "../../dist/apps/external-api",
     "module": "commonjs",
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -17,5 +20,7 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
