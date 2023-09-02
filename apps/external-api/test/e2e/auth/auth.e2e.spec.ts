@@ -2,13 +2,13 @@ import { Test } from '@nestjs/testing'
 import { getMySQLTypeOrmTestModule } from '../../getMySQLTypeOrmTestModule'
 import { HttpStatus, INestApplication } from '@nestjs/common'
 import { SingUpRequestBody } from '../../../src/module/auth/dto/SingUpRequestBody'
-import * as request from 'supertest'
+import request from 'supertest'
 import { Repository } from 'typeorm'
 import { UserEntity } from '../../../src/entity/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { EntityModule } from '../../../src/entity/entity.module'
 import { AuthModule } from '../../../src/module/auth/auth.module'
-import { setApp } from '@app/config/config/setApp'
+import { setApp } from '../../../../../libs/common/src/config/setApp'
 
 describe('/auth', () => {
   let app: INestApplication
