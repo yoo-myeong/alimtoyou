@@ -1,5 +1,8 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "declaration": true,
+    "outDir": "../../dist/libs/common",
     "module": "commonjs",
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -16,14 +19,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "paths": {
-      "@app/config": [
-        "libs/config/src"
-      ],
-      "@app/config/*": [
-        "libs/config/src/*"
-      ]
-    }
-  }
+    "esModuleInterop": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

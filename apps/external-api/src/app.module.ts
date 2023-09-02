@@ -2,18 +2,24 @@ import { Module } from '@nestjs/common'
 import { HealthModule } from './health/health.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import * as process from 'process'
-import { mysqlConfig, mysqlConfigKey } from './config/mysql.config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AuthModule } from './module/auth/auth.module'
 import { RedisModule } from '@liaoliaots/nestjs-redis'
-import { redisConfigKey } from './config/redis.config'
+import {
+  mysqlConfig,
+  mysqlConfigKey,
+} from '../../../libs/common/src/config/mysql.config'
+import {
+  redisConfig,
+  redisConfigKey,
+} from '../../../libs/common/src/config/redis.config'
 
 @Module({
   imports: [
     HealthModule,
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
-      load: [mysqlConfig],
+      load: [mysqlConfig, redisConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

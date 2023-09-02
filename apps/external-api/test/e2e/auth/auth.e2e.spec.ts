@@ -8,7 +8,7 @@ import { UserEntity } from '../../../src/entity/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { EntityModule } from '../../../src/entity/entity.module'
 import { AuthModule } from '../../../src/module/auth/auth.module'
-import { setApp } from '../../../src/config/setApp'
+import { setApp } from '@app/config/config/setApp'
 
 describe('/auth', () => {
   let app: INestApplication
