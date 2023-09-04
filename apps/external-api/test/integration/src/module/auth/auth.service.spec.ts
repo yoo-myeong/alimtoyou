@@ -4,10 +4,10 @@ import { AuthService } from '../../../../../src/module/auth/auth.service'
 import { AuthDomain } from '../../../../../src/module/auth/auth.domain'
 import { AuthCodeCreator } from '../../../../../src/module/auth/authCodeCreator'
 import { DataSource, Repository } from 'typeorm'
-import { UserEntity } from '../../../../../src/entity/user.entity'
+import { UserEntity } from '@app/entity/user/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { EntityModule } from '../../../../../src/entity/entity.module'
 import { ConflictException } from '@nestjs/common'
+import { UserEntityModule } from '@app/entity/user/user-entity.module'
 
 describe('AuthService', () => {
   let userRepository: Repository<UserEntity>
@@ -15,7 +15,7 @@ describe('AuthService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [getMySQLTypeOrmTestModule(), EntityModule],
+      imports: [getMySQLTypeOrmTestModule(), UserEntityModule],
     }).compile()
 
     userRepository = module.get(getRepositoryToken(UserEntity))

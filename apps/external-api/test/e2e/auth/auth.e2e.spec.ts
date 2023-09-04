@@ -4,11 +4,11 @@ import { HttpStatus, INestApplication } from '@nestjs/common'
 import { SingUpRequestBody } from '../../../src/module/auth/dto/SingUpRequestBody'
 import request from 'supertest'
 import { Repository } from 'typeorm'
-import { UserEntity } from '../../../src/entity/user.entity'
+import { UserEntity } from '@app/entity/user/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { EntityModule } from '../../../src/entity/entity.module'
 import { AuthModule } from '../../../src/module/auth/auth.module'
 import { setApp } from '../../../../../libs/common/src/config/setApp'
+import { UserEntityModule } from '@app/entity/user/user-entity.module'
 
 describe('/auth', () => {
   let app: INestApplication
@@ -16,7 +16,7 @@ describe('/auth', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [EntityModule, getMySQLTypeOrmTestModule(), AuthModule],
+      imports: [UserEntityModule, getMySQLTypeOrmTestModule(), AuthModule],
     }).compile()
 
     app = module.createNestApplication()

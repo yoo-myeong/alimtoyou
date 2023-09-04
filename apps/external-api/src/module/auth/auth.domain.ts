@@ -2,7 +2,7 @@ import { IsEmail } from 'class-validator'
 import { Expose } from 'class-transformer'
 import { from } from '../../utils/from'
 import { AuthCodeCreator } from './authCodeCreator'
-import { UserEntity } from '../../entity/user.entity'
+import { UserEntity } from '../../../../../libs/entity/src/user/user.entity'
 
 export class AuthDomain {
   private static readonly CODE_LENGTH = 6

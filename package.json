@@ -13,7 +13,8 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/apps/alimtoyou/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit"
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "start:external-api:local": "NODE_ENV=local nest start external-api"
   },
   "dependencies": {
     "@liaoliaots/nestjs-redis": "^9.0.5",
@@ -79,7 +80,8 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1"
+      "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@app/entity(|/.*)$": "<rootDir>/libs/entity/src/$1"
     }
   }
 }
