@@ -1,5 +1,5 @@
 import { ConflictException, Injectable } from '@nestjs/common'
-import { AuthDomain } from './auth.domain'
+import { AuthDomain } from '../../../../../libs/common/src/domain/auth/auth.domain'
 import { Repository } from 'typeorm'
 import { UserEntity } from '../../../../../libs/entity/src/user/user.entity'
 import { InjectRepository } from '@nestjs/typeorm'

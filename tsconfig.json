@@ -29,6 +29,24 @@
       ],
       "@app/entity/*": [
         "libs/entity/src/*"
+      ],
+      "@app/redis": [
+        "libs/redis/src"
+      ],
+      "@app/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@app/sqs": [
+        "libs/sqs/src"
+      ],
+      "@app/sqs/*": [
+        "libs/sqs/src/*"
+      ],
+      "@app/utils": [
+        "libs/utils/src"
+      ],
+      "@app/utils/*": [
+        "libs/utils/src/*"
       ]
     }
   }

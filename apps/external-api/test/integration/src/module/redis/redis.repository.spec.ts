@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { RedisService } from '@liaoliaots/nestjs-redis'
 import { getRedisTestModule } from '../../../../getRedisTestModule'
-import { RedisRepository } from '../../../../../src/module/redis/redis.repository'
+import { RedisRepository } from '@app/redis/redis.repository'
 import Redis from 'ioredis'
 
 describe('RedisRepository', () => {
