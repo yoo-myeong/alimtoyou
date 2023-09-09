@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Logger, Module } from '@nestjs/common'
 import { HealthModule } from './module/health/health.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import * as process from 'process'
@@ -37,5 +37,6 @@ import {
     }),
     AuthModule,
   ],
+  providers: [Logger],
 })
 export class AppModule {}
