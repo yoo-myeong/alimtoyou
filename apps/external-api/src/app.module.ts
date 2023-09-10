@@ -13,6 +13,8 @@ import {
   redisConfig,
   redisConfigKey,
 } from '../../../libs/common/src/config/redis.config'
+import { APP_INTERCEPTOR } from '@nestjs/core'
+import { ResponseMappingInterceptor } from '../../../libs/common/src/interceptor/response-mapping.interceptor'
 
 @Module({
   imports: [
@@ -37,6 +39,12 @@ import {
     }),
     AuthModule,
   ],
-  providers: [Logger],
+  providers: [
+    Logger,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ResponseMappingInterceptor,
+    },
+  ],
 })
 export class AppModule {}
