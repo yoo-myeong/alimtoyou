@@ -13,8 +13,13 @@ import {
   redisConfig,
   redisConfigKey,
 } from '../../../libs/common/src/config/redis.config'
-import { APP_INTERCEPTOR } from '@nestjs/core'
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core'
 import { ResponseMappingInterceptor } from '../../../libs/common/src/interceptor/response-mapping.interceptor'
+import { AllExceptionsFilter } from '../../../libs/common/src/filter/api/all-expcpetion.filter'
+import { BadParameterFilter } from '../../../libs/common/src/filter/api/bad-parameter.filter'
+import { NotFoundExceptionsFilter } from '../../../libs/common/src/filter/api/not-found-exceptions.filter'
+import { ForbiddenExceptionFilter } from '../../../libs/common/src/filter/api/forbidden-exception.filter'
+import { UnauthorizedExceptionFilter } from '../../../libs/common/src/filter/api/unauthorized-exception.filter'
 
 @Module({
   imports: [
@@ -44,6 +49,26 @@ import { ResponseMappingInterceptor } from '../../../libs/common/src/interceptor
     {
       provide: APP_INTERCEPTOR,
       useClass: ResponseMappingInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: BadParameterFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: NotFoundExceptionsFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: ForbiddenExceptionFilter,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: UnauthorizedExceptionFilter,
     },
   ],
 })
