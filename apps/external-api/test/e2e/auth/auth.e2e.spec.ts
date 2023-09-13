@@ -20,7 +20,7 @@ describe('/auth', () => {
     }).compile()
 
     app = module.createNestApplication()
-    setApp(app)
+    setApp(app, 'test')
     userEntityRepository = module.get(getRepositoryToken(UserEntity))
 
     await app.init()
