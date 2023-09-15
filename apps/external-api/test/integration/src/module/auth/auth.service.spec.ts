@@ -8,9 +8,11 @@ import { UserEntity } from '@app/entity/user/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { ConflictException } from '@nestjs/common'
 import { UserEntityModule } from '@app/entity/user/user-entity.module'
+import { UserRepository } from '@app/entity/user/user.repository'
 
 describe('AuthService', () => {
-  let userRepository: Repository<UserEntity>
+  let userEntityRepository: Repository<UserEntity>
+  let userRepository: UserRepository
   let dataSource: DataSource
 
   beforeAll(async () => {
@@ -18,12 +20,13 @@ describe('AuthService', () => {
       imports: [getMySQLTypeOrmTestModule(), UserEntityModule],
     }).compile()
 
-    userRepository = module.get(getRepositoryToken(UserEntity))
+    userEntityRepository = module.get(getRepositoryToken(UserEntity))
     dataSource = module.get<DataSource>(DataSource)
   })
 
   beforeEach(async () => {
-    await userRepository.delete({})
+    userRepository = new UserRepository(userEntityRepository)
+    await userEntityRepository.delete({})
   })
 
   afterAll(async () => {
@@ -31,7 +34,7 @@ describe('AuthService', () => {
   })
 
   it('유저 정보를 저장합니다', async () => {
-    const authService = new AuthService(userRepository)
+    const authService = new AuthService(userEntityRepository, userRepository)
     const email = 'a@email.com'
     const authDomain = await AuthDomain.create({
       email,
@@ -39,7 +42,7 @@ describe('AuthService', () => {
     })
 
     await authService.save(authDomain)
-    const users = await userRepository.find({
+    const users = await userEntityRepository.find({
       where: {
         email,
       },
@@ -49,7 +52,7 @@ describe('AuthService', () => {
   })
 
   it('동일 이메일은 저장할 수 없습니다', async () => {
-    const authService = new AuthService(userRepository)
+    const authService = new AuthService(userEntityRepository, userRepository)
     const email = 'a@email.com'
     const authDomain = await AuthDomain.create({
       email,
