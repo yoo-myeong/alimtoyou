@@ -63,6 +63,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/utils/tsconfig.lib.json"
       }
+    },
+    "auth-code-send-worker": {
+      "type": "application",
+      "root": "apps/auth-code-send-worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/auth-code-send-worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/auth-code-send-worker/tsconfig.app.json"
+      }
     }
   }
 }
