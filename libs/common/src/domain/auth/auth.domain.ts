@@ -31,7 +31,13 @@ export class AuthDomain {
     return user
   }
 
-  getEmail() {
+  get email() {
     return this._email
+  }
+
+  get redisCachingData() {
+    return JSON.stringify({
+      code: this._code,
+    })
   }
 }

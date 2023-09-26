@@ -14,7 +14,6 @@ export class AuthService {
   ) {}
 
   public async save(authDomain: AuthDomain) {
-    await this.userRepository.getByEmail(authDomain.getEmail())
     await this.userEntityRepository.insert(authDomain.toUserEntity())
   }
 }
