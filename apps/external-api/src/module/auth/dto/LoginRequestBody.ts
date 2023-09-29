@@ -2,7 +2,7 @@ import { IsEmail, IsString } from 'class-validator'
 import { AuthDomain } from '../../../../../../libs/common/src/domain/auth/auth.domain'
 import { AuthCodeCreator } from '../../../../../../libs/common/src/domain/auth/authCodeCreator'
 
-export class SingUpRequestBody {
+export class LoginRequestBody {
   @IsString()
   @IsEmail()
   email: string

@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing'
 import { getMySQLTypeOrmTestModule } from '../../getMySQLTypeOrmTestModule'
-import { HttpStatus, INestApplication } from '@nestjs/common'
-import { SingUpRequestBody } from '../../../src/module/auth/dto/SingUpRequestBody'
+import { HttpStatus, INestApplication, Logger } from '@nestjs/common'
+import { LoginRequestBody } from '../../../src/module/auth/dto/LoginRequestBody'
 import request from 'supertest'
 import { Repository } from 'typeorm'
 import { UserEntity } from '@app/entity/user/user.entity'
@@ -17,6 +17,7 @@ describe('/auth', () => {
   beforeAll(async () => {
     const module = await Test.createTestingModule({
       imports: [UserEntityModule, getMySQLTypeOrmTestModule(), AuthModule],
+      providers: [Logger],
     }).compile()
 
     app = module.createNestApplication()
@@ -35,7 +36,7 @@ describe('/auth', () => {
   })
 
   it('POST /auth', async () => {
-    const dto = new SingUpRequestBody()
+    const dto = new LoginRequestBody()
     dto.email = 'a@email.com'
 
     const res = await request(app.getHttpServer()).post('/auth').send(dto)

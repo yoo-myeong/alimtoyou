@@ -6,14 +6,20 @@ import { AuthCodeCreator } from '../../../../../../../libs/common/src/domain/aut
 import { DataSource, Repository } from 'typeorm'
 import { UserEntity } from '@app/entity/user/user.entity'
 import { getRepositoryToken } from '@nestjs/typeorm'
-import { ConflictException } from '@nestjs/common'
 import { UserEntityModule } from '@app/entity/user/user-entity.module'
 import { UserRepository } from '@app/entity/user/user.repository'
+import { CustomError } from '../../../../../../../libs/common/src/error/CustomError'
+import { EmailCodeRepository } from '@app/redis/email-code/email-code.repository'
+import { RedisRepository } from '@app/redis/redis.repository'
+import Redis from 'ioredis'
+import { RedisService } from '@liaoliaots/nestjs-redis'
 
 describe('AuthService', () => {
   let userEntityRepository: Repository<UserEntity>
   let userRepository: UserRepository
   let dataSource: DataSource
+  let redis: Redis
+  let emailCodeRepository: EmailCodeRepository
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -22,19 +28,31 @@ describe('AuthService', () => {
 
     userEntityRepository = module.get(getRepositoryToken(UserEntity))
     dataSource = module.get<DataSource>(DataSource)
+
+    userRepository = new UserRepository(userEntityRepository)
+
+    const redisService = module.get(RedisService)
+    redis = redisService.getClient()
+    const redisRepository = new RedisRepository(redisService)
+    emailCodeRepository = new EmailCodeRepository(redisRepository)
   })
 
   beforeEach(async () => {
-    userRepository = new UserRepository(userEntityRepository)
     await userEntityRepository.delete({})
+    await redis.flushall()
   })
 
   afterAll(async () => {
     await dataSource.destroy()
+    await redis.quit()
   })
 
   it('유저 정보를 저장합니다', async () => {
-    const authService = new AuthService(userEntityRepository, userRepository)
+    const authService = new AuthService(
+      userEntityRepository,
+      userRepository,
+      emailCodeRepository,
+    )
     const email = 'a@email.com'
     const authDomain = await AuthDomain.create({
       email,
@@ -52,7 +70,11 @@ describe('AuthService', () => {
   })
 
   it('동일 이메일은 저장할 수 없습니다', async () => {
-    const authService = new AuthService(userEntityRepository, userRepository)
+    const authService = new AuthService(
+      userEntityRepository,
+      userRepository,
+      emailCodeRepository,
+    )
     const email = 'a@email.com'
     const authDomain = await AuthDomain.create({
       email,
@@ -61,8 +83,6 @@ describe('AuthService', () => {
 
     await authService.save(authDomain)
 
-    await expect(authService.save(authDomain)).rejects.toThrow(
-      ConflictException,
-    )
+    await expect(authService.save(authDomain)).rejects.toThrow(CustomError)
   })
 })

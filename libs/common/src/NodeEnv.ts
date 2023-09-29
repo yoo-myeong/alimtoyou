@@ -10,6 +10,7 @@ export function getNodeEnv(env: string) {
   let nodeEnv: NodeEnv
   switch (env) {
     case 'local':
+    case 'test':
       nodeEnv = NodeEnv.LOCAL
       break
     case 'development':
