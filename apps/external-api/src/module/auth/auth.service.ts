@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { AuthDomain } from '../../../../../libs/common/src/domain/auth/auth.domain'
+import { AuthDomain } from '../../../../../libs/domain/src/auth/auth.domain'
 import { Repository } from 'typeorm'
 import { UserEntity } from '../../../../../libs/entity/src/user/user.entity'
 import { InjectRepository } from '@nestjs/typeorm'
 import { UserRepository } from '../../../../../libs/entity/src/user/user.repository'
-import { AuthCodeCreator } from '../../../../../libs/common/src/domain/auth/authCodeCreator'
+import { AuthCodeCreator } from '../../../../../libs/domain/src/auth/authCodeCreator'
 import { EmailCodeRepository } from '../../../../../libs/redis/src/email-code/email-code.repository'
 
 @Injectable()

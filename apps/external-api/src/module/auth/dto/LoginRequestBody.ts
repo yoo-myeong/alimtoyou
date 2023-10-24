@@ -1,6 +1,6 @@
 import { IsEmail, IsString } from 'class-validator'
-import { AuthDomain } from '../../../../../../libs/common/src/domain/auth/auth.domain'
-import { AuthCodeCreator } from '../../../../../../libs/common/src/domain/auth/authCodeCreator'
+import { AuthDomain } from '../../../../../../libs/domain/src/auth/auth.domain'
+import { AuthCodeCreator } from '../../../../../../libs/domain/src/auth/authCodeCreator'
 
 export class LoginRequestBody {
   @IsString()

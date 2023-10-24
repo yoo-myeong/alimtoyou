@@ -1,4 +1,4 @@
-import { AuthDomain } from '../../../common/src/domain/auth/auth.domain'
+import { AuthDomain } from '../../../domain/src/auth/auth.domain'
 import { RedisRepository } from '../redis.repository'
 import { Injectable } from '@nestjs/common'
 

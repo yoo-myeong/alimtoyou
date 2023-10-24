@@ -1,8 +1,8 @@
 import { IsEmail } from 'class-validator'
 import { Expose } from 'class-transformer'
-import { from } from '../../../../utils/src/from'
+import { from } from '../../../utils/src/from'
 import { AuthCodeCreator } from './authCodeCreator'
-import { UserEntity } from '../../../../entity/src/user/user.entity'
+import { UserEntity } from '../../../entity/src/user/user.entity'
 
 export class AuthDomain {
   private static readonly CODE_LENGTH = 6

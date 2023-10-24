@@ -53,6 +53,12 @@
       ],
       "@app/mailer/*": [
         "libs/mailer/src/*"
+      ],
+      "@app/domain": [
+        "libs/domain/src"
+      ],
+      "@app/domain/*": [
+        "libs/domain/src/*"
       ]
     }
   }
