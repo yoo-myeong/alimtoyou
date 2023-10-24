@@ -1,4 +1,4 @@
-import { IsEmail } from 'class-validator'
+import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator'
 import { Expose } from 'class-transformer'
 import { from } from '../../../utils/src/from'
 import { AuthCodeCreator } from './authCodeCreator'
@@ -8,20 +8,22 @@ export class AuthDomain {
   private static readonly CODE_LENGTH = 6
 
   @IsEmail()
-  @Expose({ name: 'email' })
+  @Expose()
   private readonly _email: string
 
+  @IsString()
+  @MinLength(AuthDomain.CODE_LENGTH)
+  @MaxLength(AuthDomain.CODE_LENGTH)
   private _code: string
 
   static async create(ctx: {
     email: string
     authCodeCreator: AuthCodeCreator
   }) {
-    const domain = await from(this, {
+    return await from(this, {
       email: ctx.email,
+      code: ctx.authCodeCreator.createCode(this.CODE_LENGTH),
     })
-    domain._code = ctx.authCodeCreator.createCode(this.CODE_LENGTH)
-    return domain
   }
 
   toUserEntity() {
